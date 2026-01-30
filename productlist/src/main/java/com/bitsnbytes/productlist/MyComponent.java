@@ -1,11 +1,12 @@
 package com.bitsnbytes.productlist;
 
+
 import org.springframework.stereotype.Component;
 
-
+@Component
 public class MyComponent {
 
-    MyComponent() {
+   public MyComponent() {
         System.out.println("hi from MyComponent");
     }
 
