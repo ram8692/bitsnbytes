@@ -4,40 +4,56 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-// @Entity marks this class as a persistent Java class (an entity) that represents a table in the database.
+/*
+ * OVERALL PURPOSE:
+ * This Entity class represents a single product (like "Laptop") in our database.
+ * 
+ * WHY IS THIS AN @Entity?
+ * By labeling it @Entity, Hibernate (our database manager) knows to automatically create 
+ * a "product" table in our SQL database. Each variable inside this class becomes a column in that table.
+ */
 @Entity
-// @Getter and @Setter are Lombok annotations that generate the getter and
-// setter methods for the private fields automatically.
+// @Getter and @Setter are Lombok annotations.
+// They automatically write the hidden "getProduct()", "setPrice()" etc. methods
+// so we don’t have to.
 @Getter
 @Setter
 public class Product {
 
-    // @Id specifies the primary key of an entity.
+    /*
+     * The unique database ID (Primary Key) for this product.
+     * 
+     * @GeneratedValue says
+     * "Database, please auto-generate a new number each time I add a new product."
+     */
     @Id
-    // @GeneratedValue configures the way of increment of the specified
-    // column(field).
-    // GenerationType.IDENTITY relies on an auto-incremented database column to
-    // generate the primary key.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Field mapped to the 'name' column in the product table.
+    // The name of the product. This becomes a 'name' text column in the database.
     private String name;
 
-    // Field mapped to the 'description' column.
+    // A description of what the product does.
     private String description;
 
-    // Field mapped to the 'price' column.
+    // The cost of the product. Stored as a decimal number (Double).
     private Double price;
 
-    // @ManyToOne indicates a many-to-one relationship (many products belong to one
-    // category).
+    /*
+     * UNDERSTANDING RELATIONSHIPS:
+     * Are products floating around randomly? No, they belong to a Category.
+     * E.g., A "MacBook" belongs to the "Electronics" category.
+     * 
+     * @ManyToOne tells the database:
+     * "Many different products can belong to ONE single category."
+     * 
+     * @JoinColumn tells the database: "Create a separate relationship column named
+     * 'category_id'.
+     * This column will store the ID of the category this product belongs to."
+     * nullable = false means:
+     * "You CANNOT save a product to the database unless you tell me which category it belongs to."
+     */
     @ManyToOne
-    // @JoinColumn is used to specify the foreign key column.
-    // name="category_id" specifies the name of the foreign key column in the
-    // product table.
-    // nullable = false indicates that the foreign key column cannot be null (every
-    // product must have a category).
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 }
