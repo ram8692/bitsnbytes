@@ -3,6 +3,8 @@ package com.bitsnbytes.productlist.controller;
 import com.bitsnbytes.productlist.dto.CategoryDTO;
 import com.bitsnbytes.productlist.service.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +20,9 @@ public class CategoryController {
     // get all cateories
     // create categories
     @PostMapping
-    public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
 
-        return categoryService.createCategory(categoryDTO);
+        return new ResponseEntity<>(categoryService.createCategory(categoryDTO), HttpStatus.CREATED);
 
     }
     // get category by id
