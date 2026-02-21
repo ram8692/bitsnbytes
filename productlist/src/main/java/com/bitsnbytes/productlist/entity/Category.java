@@ -5,6 +5,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // @Entity marks this class as a persistent Java class (an entity) that represents a table in the database.
@@ -34,6 +35,6 @@ public class Category {
     // cascade = CascadeType.ALL means that any change happened on Category object
     // must default cascade to related Product objects.
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
 }

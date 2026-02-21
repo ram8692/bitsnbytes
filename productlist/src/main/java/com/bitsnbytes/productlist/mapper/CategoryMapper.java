@@ -12,9 +12,9 @@ public class CategoryMapper {
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setId(category.getId());
         categoryDTO.setName(category.getName());
-        if (category.getProducts() != null) {
+        //if (category.getProducts() != null) {
             categoryDTO.setProducts(category.getProducts().stream().map(ProductMapper::toProductDTO).toList());
-        }
+        //}
         return categoryDTO;
     }
 
