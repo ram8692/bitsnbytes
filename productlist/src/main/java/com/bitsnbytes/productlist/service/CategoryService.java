@@ -11,10 +11,14 @@ public class CategoryService {
 
     private CategoryRepository categoryRepository;
 
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
     // create category
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         Category category = CategoryMapper.toCategoryEntity(categoryDTO);
-        category = CategoryRepository.save(category);
+        category = categoryRepository.save(category);
         return CategoryMapper.toCategoryDTO(category);
     }
 
