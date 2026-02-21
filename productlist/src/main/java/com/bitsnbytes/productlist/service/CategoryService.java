@@ -4,16 +4,16 @@ import com.bitsnbytes.productlist.dto.CategoryDTO;
 import com.bitsnbytes.productlist.entity.Category;
 import com.bitsnbytes.productlist.mapper.CategoryMapper;
 import com.bitsnbytes.productlist.repository.CategoryRepository;
+
+import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
-
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     // create category
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
