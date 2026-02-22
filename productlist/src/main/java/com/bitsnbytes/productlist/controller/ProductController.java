@@ -4,6 +4,7 @@ import com.bitsnbytes.productlist.dto.ProductDTO;
 import com.bitsnbytes.productlist.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +27,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     private ProductService productService;
+
     // Future endpoints (internet URLs) will be mapped here:
     // get product (@GetMapping)
     // create product (@PostMapping)
     @PostMapping
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
-        return productService.createProduct(productDTO);
+        ProductDTO savedProductDTO = productService.createProduct(productDTO);
+        return new ResponseEntity<>(savedProductDTO, HttpStatus.CREATED);
 
     }
 

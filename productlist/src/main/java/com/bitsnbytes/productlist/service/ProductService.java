@@ -30,16 +30,18 @@ public class ProductService {
 
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
+
     // Future business logic goes here:
     // inject ProductRepository
     // inject CategoryRepository
     // create product, get all products, update product, delete product etc.
     public ProductDTO createProduct(ProductDTO productDTO) {
 
-        Category category = CategoryRepository.findById(productDTO.getCategory_id()).orElseThrow(()->new RuntimeException("Category not found"));
-        Product product = ProductMapper.toProductEntity(productDTO);
-        product = ProductRepository.save(product);
-       return ProductMapper.toProductDTO(product);
+        Category category = categoryRepository.findById(productDTO.getCategory_id())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+        Product product = ProductMapper.toProductEntity(productDTO, category);
+        product = productRepository.save(product);
+        return ProductMapper.toProductDTO(product);
 
     }
 }
