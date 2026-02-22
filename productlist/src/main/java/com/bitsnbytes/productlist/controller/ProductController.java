@@ -1,5 +1,11 @@
 package com.bitsnbytes.productlist.controller;
 
+import com.bitsnbytes.productlist.dto.ProductDTO;
+import com.bitsnbytes.productlist.service.ProductService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,11 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/products")
+@AllArgsConstructor
 public class ProductController {
 
+    private ProductService productService;
     // Future endpoints (internet URLs) will be mapped here:
     // get product (@GetMapping)
     // create product (@PostMapping)
+    @PostMapping
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        return productService.createProduct(productDTO);
+
+    }
+
     // update product (@PutMapping)
     // get product by id (@GetMapping("/{id}"))
     // delete product (@DeleteMapping("/{id}"))

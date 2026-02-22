@@ -1,5 +1,12 @@
 package com.bitsnbytes.productlist.service;
 
+import com.bitsnbytes.productlist.dto.ProductDTO;
+import com.bitsnbytes.productlist.entity.Category;
+import com.bitsnbytes.productlist.entity.Product;
+import com.bitsnbytes.productlist.mapper.ProductMapper;
+import com.bitsnbytes.productlist.repository.CategoryRepository;
+import com.bitsnbytes.productlist.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /*
@@ -17,11 +24,22 @@ import org.springframework.stereotype.Service;
  * WHY NOT DO THIS IN THE CONTROLLER?
  * Because that involves complicated steps! The Controller just wants to say "Here is a package from the internet, tell me when it's saved."
  */
+@AllArgsConstructor
 @Service
 public class ProductService {
 
+    private ProductRepository productRepository;
+    private CategoryRepository categoryRepository;
     // Future business logic goes here:
     // inject ProductRepository
     // inject CategoryRepository
     // create product, get all products, update product, delete product etc.
+    public ProductDTO createProduct(ProductDTO productDTO) {
+
+        Category category = CategoryRepository.findById(productDTO.getCategory_id()).orElseThrow(()->new RuntimeException("Category not found"));
+        Product product = ProductMapper.toProductEntity(productDTO);
+        product = ProductRepository.save(product);
+       return ProductMapper.toProductDTO(product);
+
+    }
 }
